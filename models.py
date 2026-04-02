@@ -334,5 +334,5 @@ def get_engine():
 
 def get_session():
     engine = get_engine()
-    Session = sessionmaker(bind=engine)
+    Session = sessionmaker(bind=engine, expire_on_commit=False)
     return Session()
