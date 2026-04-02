@@ -11,6 +11,7 @@ from typing import Optional
 
 from fastapi import FastAPI, HTTPException, Depends, Header, Query
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy import text, inspect
 from models import Base, get_engine, get_session, ApiKey
@@ -19,6 +20,15 @@ app = FastAPI(
     title="Viori Data Hub API",
     description="Shared financial database for Viori AI bot fleet",
     version="1.0.0",
+)
+
+# CORS - allow cross-origin requests for migration and bot access
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # ============================================================
